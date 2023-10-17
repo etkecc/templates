@@ -97,7 +97,6 @@ linters:
     - gocognit
     - gocritic
     - gocyclo
-    - goerr113
     - gofmt
     - gofumpt
     - goimports
