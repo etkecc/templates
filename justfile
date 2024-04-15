@@ -12,21 +12,28 @@ default:
 # update go deps
 update *flags:
     go get {{ flags }} ./cmd
-    go get gitlab.com/etke.cc/linkpearl@latest
     go mod tidy
     go mod vendor
 
 # run linter
-lint:
+lint: && swagger
     golangci-lint run ./...
 
 # automatically fix liter issues
-lintfix:
+lintfix: && swaggerfix
     golangci-lint run --fix ./...
 
 # generate mocks
 mocks:
     @mockery --all --inpackage --testonly --exclude vendor
+
+# generate swagger docks
+swagger:
+    @swag init --dir ./cmd,./
+
+# automatically fix swagger issues
+swaggerfix: && swagger
+    @swag fmt --dir ./cmd,./
 
 # run cpu or mem profiler UI
 profile type:
@@ -44,7 +51,7 @@ run:
 
 # build app
 build:
-    go build -v -o {{ project }} ./cmd
+    CGO_ENABLED=0 go build -ldflags '-extldflags "-static"' -tags timetzdata,goolm -v -o {{ project }} ./cmd
 
 # docker login
 login:

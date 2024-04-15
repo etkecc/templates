@@ -90,7 +90,6 @@ linters:
     - exhaustive
     - exportloopref
     - forcetypeassert
-    - gochecknoinits
     - gocognit
     - gocritic
     - gocyclo
