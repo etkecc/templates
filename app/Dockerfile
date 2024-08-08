@@ -1,10 +1,10 @@
-FROM registry.gitlab.com/etke.cc/base/build AS builder
+FROM ghcr.io/etkecc/base/build AS builder
 
 WORKDIR /app
 COPY . .
 RUN just build
 
-FROM registry.gitlab.com/etke.cc/base/app
+FROM ghcr.io/etkecc/base/app
 
 ENV PROJECT_DB_DSN /data/PROJECT.db
 
