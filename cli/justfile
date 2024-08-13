@@ -9,24 +9,16 @@ update *flags:
     go mod vendor
 
 # run linter
-lint: && swagger
+lint:
     golangci-lint run ./...
 
 # automatically fix liter issues
-lintfix: && swaggerfix
+lintfix:
     golangci-lint run --fix ./...
 
 # generate mocks
 mocks:
     @mockery --all --inpackage --testonly --exclude vendor
-
-# generate swagger docks
-swagger:
-    @swag init --dir ./cmd,./
-
-# automatically fix swagger issues
-swaggerfix: && swagger
-    @swag fmt --dir ./cmd,./
 
 # run unit tests
 test packages="./...":
