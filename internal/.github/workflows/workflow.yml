@@ -11,7 +11,7 @@ permissions:
 jobs:
   lint-test:
     name: Lint and Test
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     if: ${{ !startsWith(github.ref, 'refs/tags/') }}
     steps:
       - uses: actions/checkout@v4
@@ -26,7 +26,7 @@ jobs:
 
   build-publish:
     name: Build and Publish
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
@@ -47,25 +47,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/amd64
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-
-  build-release:
-    name: Build and Release
-    runs-on: ubuntu-latest
-    if: ${{ startsWith(github.ref, 'refs/tags/') }}
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - uses: actions/setup-go@v5
-      - name: Release
-        uses: goreleaser/goreleaser-action@v6
-        with:
-          version: latest
-          args: release --clean
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
