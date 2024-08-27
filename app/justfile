@@ -26,7 +26,7 @@ swagger:
 
 # automatically fix swagger issues
 swaggerfix: && swagger
-    @swag fmt --parseDependency --dir ./cmd,./
+    @swag fmt --dir ./cmd,./
 
 # run unit tests
 test packages="./...":
