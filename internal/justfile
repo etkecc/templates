@@ -22,11 +22,11 @@ mocks:
 
 # generate swagger docks
 swagger:
-    @swag init --dir ./cmd,./
+    @swag init --parseDependency --dir ./cmd,./
 
 # automatically fix swagger issues
 swaggerfix: && swagger
-    @swag fmt --dir ./cmd,./
+    @swag fmt --parseDependency --dir ./cmd,./
 
 # run unit tests
 test packages="./...":
