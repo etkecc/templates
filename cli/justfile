@@ -4,7 +4,7 @@ default:
 
 # update go deps
 update *flags:
-    go get {{ flags }} ./cmd
+    go get {{ flags }} ./cmd/PROJECT
     go mod tidy
     go mod vendor
 
@@ -28,8 +28,8 @@ test packages="./...":
 
 # run app
 run:
-    @go run ./cmd
+    @go run ./cmd/PROJECT
 
 # build app
 build:
-    CGO_ENABLED=0 go build -ldflags '-extldflags "-static"' -tags timetzdata,goolm -v -o PROJECT ./cmd
+    CGO_ENABLED=0 go build -ldflags '-extldflags "-static"' -tags timetzdata,goolm -v ./cmd/PROJECT
