@@ -35,8 +35,8 @@ test packages="./...":
     -@rm -f cover.out
 
 # run app
-run:
-    @go run ./cmd/PROJECT
+run *flags:
+    @go run ./cmd/PROJECT {{ flags }}
 
 # install app
 install:
