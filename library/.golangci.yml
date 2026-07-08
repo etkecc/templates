@@ -110,6 +110,9 @@ linters:
           - staticcheck
         text: 'SA9003:'
       - linters:
+          - govet
+        text: 'cannot inline: type parameter inference is not yet supported'
+      - linters:
           - lll
         source: '^//go:generate '
       - linters:
