@@ -12,7 +12,7 @@ update *flags:
 lint: comment-guard && swagger
     golangci-lint run ./...
 
-# etke comment-style gate: single-line comments only, max 120 chars (exemptions in the case block below).
+# allow single-line comments only, max 120 chars (exemptions in the case block below).
 comment-guard:
     #!/usr/bin/env sh
     set -u
@@ -85,6 +85,7 @@ comment-guard:
                 in_block = 1; block_start = NR; chk(NR); next
               }
               if (substr(t, 1, 2) == "//") {
+                if (t ~ /^\/\/[ \t]*$/) { next }
                 if (t ~ /^\/\/[a-z]+:/ || t ~ /^\/\/(line|export|cgo|sys)[ \t]/ || t ~ /^\/\/\/[ \t]*</ || t ~ /^\/\/[ \t]*@[A-Za-z]/) { run = 0; next }
                 chk(NR)
                 run++
